@@ -5,7 +5,7 @@ def load_model(model_id: str):
     return model
 
 def train(model, data_path: str, epochs: int=50, imgsz: int=416, batch:int  = 8, verbose: bool=True):
-    results = model.train(data=data_path)
+    results = model.train(data=data_path, epochs=epochs, imgsz=imgsz, batch=batch, verbose=verbose)
     return results
 
 

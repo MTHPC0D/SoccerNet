@@ -1,9 +1,9 @@
 import os
-import cv2 # type: ignore
+import cv2 
 import logging
-from tqdm import tqdm # type: ignore
+from tqdm import tqdm 
 
-# Configuration du logging
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 labels_base_folder = "/Users/mathieu/Documents/SoccerNet/sn-gamestate/new/labels"
@@ -20,7 +20,7 @@ os.makedirs(train_output_folder, exist_ok=True)
 os.makedirs(test_output_folder, exist_ok=True)
 
 def draw_bounding_boxes(image_path, label_path, output_path):
-    #logging.info(f"Drawing bounding boxes for image: {image_path} with labels: {label_path}")
+
     image = cv2.imread(image_path)
     height, width, _ = image.shape
 
@@ -40,7 +40,7 @@ def draw_bounding_boxes(image_path, label_path, output_path):
         x2 = int(x_center + box_width / 2)
         y2 = int(y_center + box_height / 2)
 
-        color = (0, 255, 0)  # Green color for bounding box
+        color = (0, 255, 0) 
         cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
         cv2.putText(image, str(class_id), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
 
@@ -57,8 +57,6 @@ def process_folder(images_folder, labels_folder, output_folder):
         image_path = os.path.join(images_folder, image_file)
         label_path = os.path.join(labels_folder, label_file)
         output_path = os.path.join(output_folder, image_file)
-
-        #logging.info(f"Processing {image_file} and {label_file}")
         draw_bounding_boxes(image_path, label_path, output_path)
 
 # Process train folders

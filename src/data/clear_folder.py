@@ -2,23 +2,23 @@ import os
 import shutil
 
 def check_and_clear_directory(directory_path):
-    # Vérifier si le chemin existe et est un répertoire
+    # Check if the path exists and is a directory
     if not os.path.exists(directory_path):
-        print(f"Le chemin {directory_path} n'existe pas.")
+        print(f"The path {directory_path} does not exist.")
         return
 
     if not os.path.isdir(directory_path):
-        print(f"Le chemin {directory_path} n'est pas un répertoire.")
+        print(f"The path {directory_path} is not a directory.")
         return
 
-    # Liste le contenu du répertoire
+    # List the content of the directory
     files = os.listdir(directory_path)
 
-    # Vérifie si le répertoire est vide
+    # Check if the directory is empty
     if not files:
-        print(f"Le répertoire {directory_path} est déjà vide.")
+        print(f"The directory {directory_path} is already empty.")
     else:
-        # Supprime le contenu du répertoire
+        # Delete the content of the directory
         for file in files:
             file_path = os.path.join(directory_path, file)
             try:
@@ -27,10 +27,10 @@ def check_and_clear_directory(directory_path):
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
             except Exception as e:
-                print(f"Erreur lors de la suppression de {file_path}. Raison: {e}")
-        print(f"Le contenu du répertoire {directory_path} a été supprimé.")
+                print(f"Error while deleting {file_path}. Reason: {e}")
+        print(f"The content of the directory {directory_path} has been deleted.")
 
-# Exemple d'utilisation
+# Example usage
 #check_and_clear_directory("/Users/mathieu/Documents/SoccerNet/sn-gamestate/YOLO/murge")
 #check_and_clear_directory("/Users/mathieu/Documents/SoccerNet/sn-gamestate/YOLO/labels")
 #check_and_clear_directory("/Users/mathieu/Documents/SoccerNet/sn-gamestate/YOLO/images")

@@ -4,16 +4,16 @@ import cv2
 import os
 
 def test_model(model_path: str, test_images_dir: str, results_dir: str):
-    # Charger le modèle avec les poids "best"
+    # Load the model with "best" weights
     model = YOLO(model_path)
 
-    # Créer le dossier pour enregistrer les résultats
+    # Create the folder to save the results
     os.makedirs(results_dir, exist_ok=True)
 
-    # Extensions de fichiers d'image valides
+    # Valid image file extensions
     valid_extensions = ('.jpg', '.jpeg', '.png')
 
-    # Parcourir les images de test
+    # Iterate over the test images
     for img_name in os.listdir(test_images_dir):
         if not img_name.lower().endswith(valid_extensions):
             print(f"Skipping non-image file {img_name}")
@@ -22,20 +22,20 @@ def test_model(model_path: str, test_images_dir: str, results_dir: str):
         img_path = os.path.join(test_images_dir, img_name)
         img = cv2.imread(img_path)
 
-        # Vérifiez si l'image est correctement chargée
+        # Check if the image is loaded correctly
         if img is None:
             print(f"Failed to load image {img_path}")
             continue
 
-        # Effectuer une inférence
+        # Perform inference
         results = model(img)
 
-        # Annoter et sauvegarder chaque image
+        # Annotate and save each image
         for result in results:
-            # Annoter l'image avec les résultats
+            # Annotate the image with the results
             annotated_img = result.plot()
 
-            # Assurez-vous d'ajouter une extension de fichier valide
+            # Make sure to add a valid file extension
             save_path = os.path.join(results_dir, f'{os.path.splitext(img_name)[0]}_annotated.jpg')
             cv2.imwrite(save_path, annotated_img)
 
